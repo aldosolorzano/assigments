@@ -13,13 +13,13 @@ let bpm = prompt("Please write the bpm");
 *
 */
 const splitAx = function(noteString){
-  let noteArray = noteString.split("*");
+  let noteArray = noteString.split("*");          // "B*2" -> ["B", 2]
   let note = {
-    pitch: noteArray[0],
-    beats: parseInt(noteArray[1] || 1)
+    pitch: noteArray[0],                          // "B"
+    beats: parseInt(noteArray[1] || 1)            // 2 (but defaults to 1)
   };
 
-  return note;
+  return note;                                    // { pitch: "B", beats: 2 }
 }
 
 /*
@@ -37,14 +37,15 @@ const splitAx = function(noteString){
 */
 let parseNotes = function(notesString){
   var music = [];
-  let notesArray = notesString.split(" ");
+  let notesArray = notesString.split(" ");        // "A B*2 C*3"
 
+  // Iterate through each pitch-note pair
   for(var i = 0; i < notesArray.length; i++) {
-    let note = splitAx(notesArray[i]);
+    let note = splitAx(notesArray[i]);          // { pitch: "B", beats: 2 }
     music.push(note);
   }
 
-  return music;
+  return music;                                   // [ { pitch: "B", beats: 2 } ]
 }
 
 
