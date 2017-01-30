@@ -123,11 +123,7 @@ let jukeboxAudioContext = new webkitAudioContext();
 const playSong = function(song, bpm, onComplete) {
 
   if (typeof onComplete == "undefined") {
-    onComplete = function(){
-       notes = prompt("Pleas write the notes you want to play and the beat of each one");
-       bpm = prompt("Please write the bpm")
-       playSong(parseNote(notes), bpm);
-    };
+    onComplete = function(){};
   }
 
   let currNote = 0;

@@ -1,7 +1,4 @@
 
-let notes = prompt("Pleas write the notes you want to play and the beat of each one");
-let bpm = prompt("Please write the bpm");
-
 /*
 *   Takes a string containing a musical note and optional beat-length
 *   and return an object with named parameters. If beat-length is not
@@ -48,5 +45,15 @@ let parseSong = function(notesString){
   return music;                                   // [ { pitch: "B", beats: 2 } ]
 }
 
+/*
+*   Prompts user for song notes and bpm then plays the song.
+*
+*/
+let runPlayer = function() {
+  let notes = prompt("Pleas write the notes you want to play and the beat of each one");
+  let bpm = prompt("Please write the bpm");
+  playSong(parseSong(notes), bpm, runPlayer);
+};
 
-playSong(parseSong(notes), bpm);
+runPlayer();
+
