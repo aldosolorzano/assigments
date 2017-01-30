@@ -8,24 +8,24 @@ const splitAx = function(str, wich){  //removes * from notes
   return arr[wich];
 }
 
-let parseNote = function(note){
+let parseNote = function(notesString){
   var music = [];
-  let arr = note.split(" ");
+  let notesArray = notesString.split(" ");
 
-  for(var i =0; i < arr.length; i++) {
-    let obj = new Object();
+  for(var i = 0; i < notesArray.length; i++) {
+    let note = new Object();
 
-    for(var j =0; j < keys.length; j++) {
-      if(arr[i].length > 2 && j > 0) {
-        obj[keys[j]] = parseInt(splitAx(arr[i], 1));
+    for(var j = 0; j < keys.length; j++) {
+      if(notesArray[i].length > 2 && j > 0) {
+        note[keys[j]] = parseInt(splitAx(notesArray[i], 1));
       } else if(j > 0) {
-        obj[keys[j]] = 1;
+        note[keys[j]] = 1;
       } else {
-         obj[keys[j]] = splitAx(arr[i], 0);
+         note[keys[j]] = splitAx(notesArray[i], 0);
       }
     }
 
-    music.push(obj);
+    music.push(note);
   }
 
   return music;
