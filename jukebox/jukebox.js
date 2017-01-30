@@ -8,11 +8,6 @@ const splitAx = function(str, wich){  //removes * from notes
   return arr[wich];
 }
 
-const splitLet = function(str){       //r
-  let arr = str.split("*");
-  return arr[0];
-}
-
 let parseNote = function(note){
   var music = [];
   let arr = note.split(" ");
