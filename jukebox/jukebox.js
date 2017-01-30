@@ -12,7 +12,7 @@ let bpm = prompt("Please write the bpm");
 *         parseNote("B*2")  -> { pitch: "B", beats: 2 }
 *
 */
-const parseNote = function(noteString){
+let parseNote = function(noteString){
   let noteArray = noteString.split("*");          // "B*2" -> ["B", 2]
   let note = {
     pitch: noteArray[0],                          // "B"
@@ -36,11 +36,11 @@ const parseNote = function(noteString){
 *
 */
 let parseSong = function(notesString){
-  var music = [];
+  let music = [];
   let notesArray = notesString.split(" ");        // "A B*2 C*3"
 
   // Iterate through each pitch-note pair
-  for(var i = 0; i < notesArray.length; i++) {
+  for(let i = 0; i < notesArray.length; i++) {
     let note = parseNote(notesArray[i]);          // { pitch: "B", beats: 2 }
     music.push(note);
   }
