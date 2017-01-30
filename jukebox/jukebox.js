@@ -12,10 +12,10 @@ let parseNote = function(note){
   var music = [];
   let arr = note.split(" ");
 
-  for(var i =0, len = arr.length; i < len; i++) {
+  for(var i =0; i < arr.length; i++) {
     let obj = new Object();
 
-    for(var j =0, l=keys.length; j<l; j++) {
+    for(var j =0; j < keys.length; j++) {
       if(arr[i].length > 2 && j > 0) {
         obj[keys[j]] = parseInt(splitAx(arr[i], 1));
       } else if(j > 0) {
