@@ -1,30 +1,46 @@
 
-let keys = ["pitch", "beats"];
 let notes = prompt("Pleas write the notes you want to play and the beat of each one");
 let bpm = prompt("Please write the bpm");
 
-const splitAx = function(str, wich){  //removes * from notes
-  let arr = str.split("*");
-  return arr[wich];
+/*
+*   Takes a string containing a musical note and optional beat-length
+*   and return an object with named parameters. If beat-length is not
+*   specified, it defaults to 1.
+*
+*   e.g.
+*         splitAx("A")    -> { pitch: "A", beats: 1 }
+*         splitAx("B*2")  -> { pitch: "B", beats: 2 }
+*
+*/
+const splitAx = function(noteString){
+  let noteArray = noteString.split("*");
+  let note = {
+    pitch: noteArray[0],
+    beats: parseInt(noteArray[1] || 1)
+  };
+
+  return note;
 }
 
-let parseNote = function(notesString){
+/*
+*   Takes a complete song string and returns an Array of pitch+beat
+*   objects.
+*
+*   e.g.
+*         parseNotes("A B*2 C*3") ->
+*             [
+*               { pitch: "A", beats: 1 },
+*               { pitch: "B", beats: 2 },
+*               { pitch: "C", beats: 3 }
+*             ]
+*
+*/
+let parseNotes = function(notesString){
   var music = [];
   let notesArray = notesString.split(" ");
 
   for(var i = 0; i < notesArray.length; i++) {
-    let note = new Object();
-
-    for(var j = 0; j < keys.length; j++) {
-      if(notesArray[i].length > 2 && j > 0) {
-        note[keys[j]] = parseInt(splitAx(notesArray[i], 1));
-      } else if(j > 0) {
-        note[keys[j]] = 1;
-      } else {
-         note[keys[j]] = splitAx(notesArray[i], 0);
-      }
-    }
-
+    let note = splitAx(notesArray[i]);
     music.push(note);
   }
 
@@ -32,4 +48,4 @@ let parseNote = function(notesString){
 }
 
 
-playSong(parseNote(notes), bpm);
+playSong(parseNotes(notes), bpm);
