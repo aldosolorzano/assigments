@@ -8,11 +8,11 @@ let bpm = prompt("Please write the bpm");
 *   specified, it defaults to 1.
 *
 *   e.g.
-*         splitAx("A")    -> { pitch: "A", beats: 1 }
-*         splitAx("B*2")  -> { pitch: "B", beats: 2 }
+*         parseNote("A")    -> { pitch: "A", beats: 1 }
+*         parseNote("B*2")  -> { pitch: "B", beats: 2 }
 *
 */
-const splitAx = function(noteString){
+const parseNote = function(noteString){
   let noteArray = noteString.split("*");          // "B*2" -> ["B", 2]
   let note = {
     pitch: noteArray[0],                          // "B"
@@ -27,7 +27,7 @@ const splitAx = function(noteString){
 *   objects.
 *
 *   e.g.
-*         parseNotes("A B*2 C*3") ->
+*         parseSong("A B*2 C*3") ->
 *             [
 *               { pitch: "A", beats: 1 },
 *               { pitch: "B", beats: 2 },
@@ -35,13 +35,13 @@ const splitAx = function(noteString){
 *             ]
 *
 */
-let parseNotes = function(notesString){
+let parseSong = function(notesString){
   var music = [];
   let notesArray = notesString.split(" ");        // "A B*2 C*3"
 
   // Iterate through each pitch-note pair
   for(var i = 0; i < notesArray.length; i++) {
-    let note = splitAx(notesArray[i]);          // { pitch: "B", beats: 2 }
+    let note = parseNote(notesArray[i]);          // { pitch: "B", beats: 2 }
     music.push(note);
   }
 
@@ -49,4 +49,4 @@ let parseNotes = function(notesString){
 }
 
 
-playSong(parseNotes(notes), bpm);
+playSong(parseSong(notes), bpm);
