@@ -1,0 +1,21 @@
+{
+  "name": "team-randomizer",
+  "version": "0.0.1",
+  "main": "app.js",
+  "repository": {},
+  "scripts": {
+    "start": "nodemon app.js",
+    "debug": "node --inspect app.js"
+  },
+  "author": "aldosolorzano",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

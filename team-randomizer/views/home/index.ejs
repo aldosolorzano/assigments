@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+<style media="screen">
+  .title{
+    font-weight:bold;
+  }
+</style>
+
+<div class="container-fluid block-center">
+  <h1>Team Randomizer</h1>
+
+  <form class"form-horizontal" action method="post">
+    <div class="form-group">
+        <label class="title">Names</label><br>
+        <input type = "text" class = "form-control" name="names" value="<%=names%>">
+    </div>
+    <div class="form-group">
+      <label class="title"for="">Method </label>
+      <input type="radio" name="method" value="team-count">
+      <label>Team count </label>
+      <input class=""type="radio" name="method" value="per-team">
+      <label>Number per team</label>
+    </div>
+    <div class="form-group">
+      <label class="title"for="">Number</label><br>
+      <input class = "form-control" type="number" name="number" value="<%=number%>">
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" name="submit" value="submit">
+    </div>
+  </form>
+
+    <div class="row">
+  <% for(team of teams){ %>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <%  for(name of team){ %>
+            <li class="list-group-item text-center"><h4><%=name%></h4></li>
+            <%    }%>
+          </ul>
+      </div>
+      <%}%>
+    </div>
+
+</div>
+
+
+
+
+
+<%- include('../partials/footer') %>
