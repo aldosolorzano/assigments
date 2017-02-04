@@ -1,6 +1,19 @@
 const Express = require('express');
 const router = Express.Router();
 const submitted = {names:"",method:"",number:"",teams:{value:""}};
+const pg = require('pg')
+
+const config= {
+  user: 'aldo',
+  database: 'teamPicker',
+  password: '',
+  host: 'localhost',
+  port: 5432,
+  max: 10,
+  idleTimeoutMillis:300000
+};
+
+const pool = new pg.Pool(config);
 
 router.get('/',function(req,res){
   let cookies = req.cookies;
@@ -15,6 +28,16 @@ router.get('/',function(req,res){
 });
 
 router.post('/',function(req,res){
+  pool.connect((err,client, done)=>{
+    if(err) return console.error("Error cant connect to pool")
+    client.query('INSERT INTO public."teamPicker" (request) VALUES($1)',[namesArr]);
+    (qERR)=>{
+      done();
+      if(qERR) return console.error("problem with query")
+    }
+  })
+
+
   let params = req.body;
   let numberTeams = parseInt(params.number);
   let method = params.method;
@@ -59,13 +82,14 @@ function teamCount(names,n) {
       teams.push([]);
     }
 
-    for(e=0; e<teams.length; e++){
+    for(i=0; i<teams.length; i++){
       for(j = 0; j < Math.ceil(nameslength/n);j++){
           let name = randomator();
           if(name==undefined){
+            teams.splice(i)
             return teams
           } else {
-            teams[e].push(name);
+            teams[i].push(name);
           }
       }
     }
