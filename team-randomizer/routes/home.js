@@ -1,26 +1,38 @@
 const Express = require('express');
 const router = Express.Router();
-const submitted = {names:"",method:"",number:"",teams:""};
+const submitted = {names:"",method:"",number:"",teams:{value:""}};
 
 router.get('/',function(req,res){
-  res.render('home/index',submitted);
+  let cookies = req.cookies;
+  if(cookies.names == undefined){
+    res.render('home/index',submitted);
+  } else{
+    if(cookies.teams.value == undefined){
+      res.cookie('teams',{value:[["Wating to display teams"]]});
+    }
+    res.render('home/index',cookies);
+  }
 });
 
 router.post('/',function(req,res){
   let params = req.body;
-  let namesArr = params.names.split(",");
   let numberTeams = parseInt(params.number);
   let method = params.method;
-  console.log(params)
-  if(method === "team-count"){
-    params.teams = teamCount(namesArr,numberTeams);
-  } else if (method == "per-team") {
-    params.teams = perTeam(namesArr,numberTeams);
-  }else{
-    params.teams = [["Please select a method"]]
-  }
+  let names = params.names;
+  res.cookie('names',names);
+  res.cookie('number',numberTeams);
+  let cookies = req.cookies;
 
-  res.render('home/index',params);
+  if(method === "team-count"){
+    let namesArr = names.split(",");
+    res.cookie('teams',{value:teamCount(namesArr,numberTeams)});
+  } else if (method == "per-team") {
+    let namesArr = names.split(",");
+    res.cookie('teams',{value:perTeam(namesArr,numberTeams)});
+  }else{
+    res.cookie('teams',{value:[["Hello, enter some values"]]});
+  }
+  res.redirect('/');
 })
 
 function randomName(names){
@@ -40,7 +52,7 @@ function teamCount(names,n) {
     return teams;
   }
 
-  let randomator =  randomName(names);
+  let randomator =  randomName(names)
   let nameslength = names.length;
   let teams = [];
     for(i=0; i < n; i++){
@@ -48,15 +60,15 @@ function teamCount(names,n) {
     }
 
     for(e=0; e<teams.length; e++){
-      console.log(teams)
       for(j = 0; j < Math.ceil(nameslength/n);j++){
           let name = randomator();
           if(name==undefined){
             return teams
-          } else {teams[e].push(name[0]);}
+          } else {
+            teams[e].push(name);
+          }
       }
     }
-  console.log(teams);
   return teams;
 }
 function perTeam(names,n){
@@ -77,10 +89,9 @@ function perTeam(names,n){
       let name = randomator()
       if(name==undefined){
         return teams
-      } else {teams[i].push(name[0])}
+      } else {teams[i].push(name)}
     }
   }
-  console.log(teams);
   return teams;
 }
 

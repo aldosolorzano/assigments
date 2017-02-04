@@ -3,6 +3,10 @@
   .title{
     font-weight:bold;
   }
+  .list{
+    border-radius: 5px;
+    border: 1px solid;
+  }
 </style>
 
 <div class="container-fluid block-center">
@@ -29,17 +33,24 @@
     </div>
   </form>
 
-    <div class="row">
-  <% for(team of teams){ %>
-      <div class="col-md-4">
-        <ul class="list-group">
-          <%  for(name of team){ %>
-            <li class="list-group-item text-center"><h4><%=name%></h4></li>
-            <%    }%>
-          </ul>
-      </div>
-      <%}%>
+<% if(teams.value == undefined){ %>
+
+<%} else { %>
+  <%let teamNumber = 1;%>
+  <div class="row">
+<% for(team of teams.value){ %>
+    <div class="col-md-4">
+      <h3>Team <%=teamNumber%></h3>
+      <ul class="list list-group">
+        <%  for(name of team){ %>
+          <li class="list-group-item text-center"><h4><%=name%></h4></li>
+          <%    }%>
+        </ul>
     </div>
+    <%teamNumber++;%>
+    <%}%>
+  </div>
+  <%}%>
 
 </div>
 
