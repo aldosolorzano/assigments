@@ -1,0 +1,17 @@
+<h1>Edit a project</h1>
+
+<%= form_for @project do |p| %>
+<div cass="">
+  <%= p.label :title%>
+  <%= p.text_field :title%>
+</div>
+
+<div cass="">
+  <%= p.label :description%>
+  <%= p.text_field :description%>
+</div>
+
+<div cass="">
+  <%= p.submit %>
+</div>
+<%end%>
