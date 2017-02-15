@@ -1,3 +1,4 @@
+// A stack is Last-In First-Out (LIFO) system.
 const Stack =  function(stacker){
   this.stacker = [];
 }
@@ -5,7 +6,7 @@ Stack.prototype.add = function (arg){
   this.stacker.unshift(arg);
 }
 Stack.prototype.remove = function(){
-  return this.stacker.splice(0,1)[0];
+  return this.stacker.pop(); // remove the last element
 }
 
 a = new Stack();
@@ -19,6 +20,7 @@ a.add("plate6");
 a.remove()
 a.remove()
 
+// A queue is First-In First-Out (FIFO) system.
 class Queue {
   constructor(arg){
     this.queue = [];
@@ -29,7 +31,7 @@ class Queue {
   }
 
   remove(){
-    return this.queue.pop()
+    return this.queue.shift(); // remove the first element
   }
 }
 
