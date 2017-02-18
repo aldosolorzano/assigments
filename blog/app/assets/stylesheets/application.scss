@@ -13,7 +13,6 @@
  *= require_tree .
  *= require_self
  */
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome-sprockets";
@@ -39,13 +38,15 @@ main {
   font-size: 16px;
 }
 .comment-author-image{
-  max-height: 150px;
+  max-height: 100px;
 }
-.comment-body{
+.comment-box{
   display: flex;
-}
-.comment-body-item{
+  flex-direction: column;
   justify-content: center;
+}
+.delete-comment{
+  margin-top: 25%;
 }
 .comment-footer{
   margin-top: 20px;
@@ -63,4 +64,7 @@ main {
 .footer-social > i{
   padding-left: 20px;
   padding-right: 20px;
+}
+.post-top > i{
+  padding: 20px;
 }

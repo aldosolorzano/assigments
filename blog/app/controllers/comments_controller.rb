@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new comment_params
     @post = Post.find(params[:post_id])
     @comment.post = @post
+    @comments = Comment.where(post_id: params[:post_id])
 
     if @comment.save
       redirect_to post_path(params[:post_id])
@@ -14,6 +15,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = Comment.find params[:id]
+    comment.destroy
+    redirect_to post_path(comment.post_id)
   end
 
 end

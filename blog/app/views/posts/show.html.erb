@@ -3,7 +3,13 @@
     <div class="col-sm-8">
       <h1><%= @post.title %></h1>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4 hidden-xs">
+      <div class="post-top">
+          <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+          <span class="post-likes">235</span>
+          <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
+
+      </div>
     </div>
   </div>
 </div>
@@ -16,7 +22,7 @@
   <div class="post-text">
     <p><%= @post.body%></p>
     <p class="text-right"><%=@post.created_at%></p>
-    <div class="row post-footer">
+    <div class="row post-footer visible-xs">
       <div class="col-xs-2">
         <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
         <span class="post-likes">235</span>
@@ -38,9 +44,14 @@
   </div>
 
   <h1>Leave a comment</h1>
-  <%= form_for [@post,@comment], :html => {class: "form-horizontal center" } do |c| %>
+  <p><%= @post.errors.full_messages.join(', ')%></p>
+  <%= form_for [@post,@comment], :html => {class: "form-horizontal" } do |c| %>
     <div class="form-group">
       <%= c.text_area :body, class: "form-control", placeholder: '....', rows:6%>
+    </div>
+    <div class="form-group">
+      <%= c.label 'Name' %>
+      <input type="text" class="form-control"name="" value="">
     </div>
     <%= c.submit class: "btn btn-primary"%>
   <%end%>
@@ -52,8 +63,14 @@
         <div class="col-xs-2">
           <%= image_tag 'stewei.png', class: "comment-author-image img-responsive" %>
         </div>
-        <div class="comment-body col-xs-9">
+        <div class="comment-body col-xs-8">
           <p><%= c.body %></p>
+        </div>
+        <div class="comment-body col-xs-2">
+          <%= link_to 'delete', post_comment_path(@post,c),
+                                 method: :delete,
+                                 class: 'btn btn-danger delete-comment',
+                                 data: {confirm: 'Do you want to delete this comment?'}%>
         </div>
       </div>
       <div class="row comment-footer">
