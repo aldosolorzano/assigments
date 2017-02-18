@@ -22,35 +22,45 @@
 main {
   margin-top: 80px;
 }
-.post-image{
+.post-image > img{
   width: 100%;
-  height: 250px;
-  border: 1px solid black;
+  max-height: 600px;
 }
+
 .post-footer{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 5px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-top: 20px;
 }
 .post-text{
+  margin-top: 20px;
   text-align: justify;
 }
-main{
-  margin-top: 80px;
+.post-likes{
+  margin-left: 10px;
+  font-size: 16px;
+}
+.comment-author-image{
+  max-height: 150px;
+}
+.comment-body{
+  display: flex;
+}
+.comment-body-item{
+  justify-content: center;
+}
+.comment-footer{
+  margin-top: 20px;
 }
 @media (max-width: 860px) {
   .most-liked{
     display:none;
   }
 }
-// .footer-social{
-//   display: flex;
-//   justify-content: center;
-//   padding: 20px;
-// }
-// .footer-social > i{
-//   padding-left: 10px;
-//   padding-right: 10px;
-// }
+.footer-social{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.footer-social > i{
+  padding-left: 20px;
+  padding-right: 20px;
+}

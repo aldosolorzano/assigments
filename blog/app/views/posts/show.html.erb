@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-8">
-      <h1>Post Title</h1>
+      <h1><%= @post.title %></h1>
     </div>
     <div class="col-sm-4">
     </div>
@@ -9,32 +9,61 @@
 </div>
 
 <div class="post-image">
+  <%= image_tag 'post-image.jpg',class: "img-responsive"%>
 </div>
 
 <div class="container">
   <div class="post-text">
-    <p><%= Faker::Lorem.paragraph(12)%></p>
-    <p class="text-right">date</p>
-    <div class="row">
+    <p><%= @post.body%></p>
+    <p class="text-right"><%=@post.created_at%></p>
+    <div class="row post-footer">
       <div class="col-xs-2">
         <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+        <span class="post-likes">235</span>
       </div>
-      <div class="col-xs-2">
-        <h4 class="post-likes">436</h4>
-      </div>
-      <div class="col-xs-8">
-        <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
+      <div class="col-xs-10">
+        <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
       </div>
     </div>
     <p>Post category</p>
   </div>
   <div class="row"> <%#author comment%>
     <div class="col-xs-3 author-image">
-      <img class="img-responsive" src="" alt="">
+      <%= image_tag 'aldo.JPG', class: 'img-responsive' %>
     </div>
     <div class="col-xs-9">
       <a href=""><h4>User author</h4></a>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad</p>
+      <p><%= Faker::Lorem.paragraph(10)%></p>
     </div>
   </div>
+
+  <h1>Leave a comment</h1>
+  <%= form_for [@post,@comment], :html => {class: "form-horizontal center" } do |c| %>
+    <div class="form-group">
+      <%= c.text_area :body, class: "form-control", placeholder: '....', rows:6%>
+    </div>
+    <%= c.submit class: "btn btn-primary"%>
+  <%end%>
+  <hr>
+
+  <% @comments.each do |c| %>
+  <div class="container comment">
+      <div class="row">
+        <div class="col-xs-2">
+          <%= image_tag 'stewei.png', class: "comment-author-image img-responsive" %>
+        </div>
+        <div class="comment-body col-xs-9">
+          <p><%= c.body %></p>
+        </div>
+      </div>
+      <div class="row comment-footer">
+        <div class="col-xs-6">
+          <p class="text-left">comment author name</p>
+        </div>
+        <div class="col-xs-6">
+          <p class="text-right">comment date</p>
+        </div>
+      </div>
+    </div>
+  <%end%>
 </div>

@@ -1,13 +1,19 @@
-<h1>New post</h1>
-
-<%= form_for @post do |p| %>
-  <div class="">
+<div class="container">
+  <h1>New post</h1>
+  <p><%= @post.errors.full_messages.join(', ')%></p>
+  <%= form_for @post do |p| %>
+  <div class="form-group">
     <%= p.label :title %>
-    <%= p.text_field :title %>
+    <%= p.text_field :title,class: 'form-control' %>
   </div>
-  <div class="">
+  <div class="form-group">
+    <%= p.label :category_id %>
+    <%= p.collection_select :category_id, Category.all,:id,:name%>
+  </div>
+  <div class="form-group">
     <%= p.label :body %>
-    <%= p.text_area :body %>
+    <%= p.text_area :body,class: 'form-control', rows:10 %>
   </div>
-  <%= p.submit 'Create' %>
-<%end%>
+  <%= p.submit 'Create',class: 'btn btn-primary' %>
+  <%end%>
+</div>

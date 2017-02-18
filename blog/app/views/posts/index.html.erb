@@ -1,18 +1,24 @@
 <div class="container-fluid">
+
   <h1>Posts</h1>
   <div class="row">
     <div class="col-md-8">
       <div class="post">
         <div class="post-image">
+          <%= image_tag 'post-image', class: 'img-responsive' %>
         </div>
-        <div class="post-footer">
-          <i class="fa fa-heart-o " aria-hidden="true"></i>
-          <p class="post-likes">436</p>
-          <i class="fa fa-bookmark-o" aria-hidden="true"></i>
+        <div class="row post-footer">
+          <div class="col-xs-2">
+            <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+            <span class="post-likes">235</span>
+          </div>
+          <div class="col-xs-10">
+            <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
+          </div>
         </div>
         <div class="post-text">
-          <h1>Title</h1>
-          <p><%=Faker::Lorem.paragraph(12)%></p>
+          <h1><%= @posts.first.title%></h1>
+          <p><%=%></p>
           <a href="#">author</a>
           <p>date</p>
         </div>
@@ -23,27 +29,32 @@
       <p><%=Faker::Lorem.paragraph(12)%></p>
     </div>
   </div>
- <% 2.times do %>
- <div class="row">
-   <% 3.times do %>
-   <div class="col-md-4">
-     <div class="post">
-       <div class="post-image">
-       </div>
-       <div class="post-footer">
-         <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
-         <p class="post-likes">436</p>
-         <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
-       </div>
-       <div class="post-text">
-         <h1>Title</h1>
-         <p><%=Faker::Lorem.paragraph(12)%></p>
-         <a href="#">author</a>
-         <p>date</p>
-       </div>
-     </div>
-   </div>
-   <%end%>
- </div>
- <% end%>
+
+  <div class="row posts">
+    <% @posts.last(@posts.count - 1).each do |p| %>
+      <div class="col-md-4">
+        <div class="post">
+          <div class="post-image">
+            <%= image_tag 'post-image', class: 'img-responsive' %>
+          </div>
+          <div class="row post-footer">
+            <div class="col-xs-2">
+              <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+              <span class="post-likes">235</span>
+            </div>
+            <div class="col-xs-10">
+              <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
+            </div>
+          </div>
+          <div class="post-text">
+            <h1><%= p.title%></h1>
+            <p><%=p.body%></p>
+            <a href="#">author</a>
+            <p>date</p>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
+
 </div>
