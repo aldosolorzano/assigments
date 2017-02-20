@@ -21,7 +21,7 @@
 <div class="container">
   <div class="post-text">
     <p><%= @post.body%></p>
-    <p class="text-right"><%=@post.created_at%></p>
+    <p class="text-right"><%=@post.created_at.strftime("%Y-%m-%d")%></p>
     <div class="row post-footer visible-xs">
       <div class="col-xs-2">
         <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
@@ -31,7 +31,7 @@
         <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
       </div>
     </div>
-    <p>Post category</p>
+    <p><%= Category.find(@post.category_id).name %></p>
   </div>
   <div class="row"> <%#author comment%>
     <div class="col-xs-3 author-image">
