@@ -18,7 +18,7 @@
         </div>
         <div class="post-text">
           <h1><%= @posts.first.title%></h1>
-          <p><%=%></p>
+          <p><%=@posts.first.body%></p>
           <a href="#">author</a>
           <p><%= @posts.first.created_at.strftime("%Y-%m-%d")%></p>
         </div>
@@ -26,7 +26,7 @@
     </div>
     <div class="col-md-4 most-liked">
       <h1>Most liked</h1>
-      <p><%=Faker::Lorem.paragraph(12)%></p>
+      <p><%=Faker::Lorem.paragraph(20)%></p>
     </div>
   </div>
 

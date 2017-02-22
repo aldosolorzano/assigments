@@ -12,8 +12,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a href="/">
-      </a>
+      <i style="margin-top:10px"class="fa fa-coffee fa-3x" aria-hidden="true"></i>
 
       <button
         type="button"
@@ -43,6 +42,12 @@
 </nav>
 
 <main>
+  <div class="container">
+    <%= notice || alert %>
+    <% if user_signed_in? %>
+    <p>Hello <%= current_user.full_name%></p>
+    <%end%>
+  </div>
   <%= yield %>
 </main>
 <footer>

@@ -1,0 +1,27 @@
+<div class="container">
+  <h1>Sign Up</h1>
+  <p><%= @user.errors.full_messages.join(', ')%></p>
+  <%= form_for @user do |p| %>
+  <div class="form-group">
+    <%= p.label :first_name %>
+    <%= p.text_field :first_name,class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= p.label :last_name %>
+    <%= p.text_field :last_name, class: 'form-control'%>
+  </div>
+  <div class="form-group">
+    <%= p.label :email %>
+    <%= p.email_field :email,class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= p.label :password %>
+    <%= p.password_field :password,class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= p.label :password_confirmation %>
+    <%= p.password_field :password_confirmation,class: 'form-control' %>
+  </div>
+  <%= p.submit 'Sign Up',class: 'btn btn-primary' %>
+  <%end%>
+</div>
