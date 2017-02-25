@@ -34,18 +34,19 @@
         <li><%= link_to 'New', new_post_path%></li>
       </ul>
       <ul class="nav navbar-nav">
-        <li><a href="#">Sign Up</a></li>
-        <li><a href="#">Sign Login</a></li>
+        <li><%= link_to 'Sign Up', new_user_path%></li>
+        <li><%= link_to 'Sign In', new_session_path%></li>
+        <li><%= link_to 'Sign out', sessions_path,method: :delete if user_signed_in?%></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <main>
-  <div class="container">
+  <div class="container-fluid">
     <%= notice || alert %>
     <% if user_signed_in? %>
-    <p>Hello <%= current_user.full_name%></p>
+    <p>Hello <%=link_to current_user.full_name, edit_user_path(current_user)%></p>
     <%end%>
   </div>
   <%= yield %>

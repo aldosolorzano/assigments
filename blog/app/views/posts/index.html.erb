@@ -17,10 +17,10 @@
           </div>
         </div>
         <div class="post-text">
-          <h1><%= @posts.first.title%></h1>
-          <p><%=@posts.first.body%></p>
-          <a href="#">author</a>
-          <p><%= @posts.first.created_at.strftime("%Y-%m-%d")%></p>
+          <h1><%= link_to @first_post.title, post_path(@first_post) %></h1>
+          <p><%=@first_post.body%></p>
+          <%= link_to @first_post.user.full_name %>
+          <p><%= @first_post.created_at.strftime("%Y-%m-%d")%></p>
         </div>
       </div>
     </div>
@@ -30,30 +30,42 @@
     </div>
   </div>
 
-  <div class="row posts">
+  <div class=" posts">
+    <% count = 0 %>
     <% @posts.last(@posts.count - 1).each do |p| %>
-      <div class="col-md-4">
-        <div class="post">
-          <div class="post-image">
-            <%= image_tag 'post-image', class: 'img-responsive' %>
-          </div>
-          <div class="row post-footer">
-            <div class="col-xs-2">
-              <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
-              <span class="post-likes">235</span>
+      <% if count == 0 %>
+        <div class="row">
+      <% end %>
+        <div class="col-md-4">
+          <div class="post">
+            <div class="post-image">
+              <%= image_tag 'post-image', class: 'img-responsive' %>
             </div>
-            <div class="col-xs-10">
-              <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
+            <div class="row post-footer">
+              <div class="col-xs-2">
+                <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+                <span class="post-likes">235</span>
+              </div>
+              <div class="col-xs-10">
+                <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
+              </div>
             </div>
-          </div>
-          <div class="post-text">
-            <h1><%= p.title%></h1>
-            <p><%=p.body%></p>
-            <a href="#">author</a>
-            <p><%= p.created_at.strftime("%Y-%m-%d")%></p>
+            <div class="post-text">
+              <h1><%=link_to p.title, post_path(p)%></h1>
+              <p><%=p.body%></p>
+              <%= link_to p.user.full_name, edit_user_path(p.user_id) %>
+              <p><%= p.created_at.strftime("%Y-%m-%d")%></p>
+            </div>
           </div>
         </div>
-      </div>
+
+        <% if count == 2 %>
+          </div>
+          <% count = 0 %>
+        <% else %>
+          <% count += 1 %>
+        <% end %>
+
     <%end%>
   </div>
   <h4 class='text-center'><%= link_to 'More articles'%></4>
