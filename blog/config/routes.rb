@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   resources :users, only:[:new,:create,:edit,:update] do
-    resources :passwords, only:[:new,:update]
+    resources :passwords, only:[:new,:edit,:update]
   end
   resources :sessions, only:[:new,:create] do
     delete :destroy, on: :collection
