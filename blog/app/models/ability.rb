@@ -13,7 +13,7 @@ class Ability
     if user.is_admin?
       can :manage, :all
     end
-    
+
     can :manage, Post do |p|
       p.user == user
     end
@@ -25,6 +25,13 @@ class Ability
       u == user
     end
 
+    can :like, Post do |p|
+      p.user != user
+    end
+
+    cannot :like, Post do |p|
+      p.user == user
+    end
     # The first argument to `can` is the action you are giving the user
     # permission to do.
     # If you pass :manage it will apply to every action. Other common actions

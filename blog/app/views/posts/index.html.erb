@@ -25,9 +25,16 @@
       </div>
     </div>
     <div class="col-md-4 most-liked">
-      <h1>Most liked</h1>
-      <p><%=Faker::Lorem.paragraph(20)%></p>
+      <div class="panel panel-default">
+      <div class="panel-heading">Most liked</div>
+      <div class="panel-body">
+        <% @posts.each do |p| %>
+          <%= link_to p.title, post_path(p) %>
+        <% end %>
+      </div>
     </div>
+    </div>
+
   </div>
 
   <div class=" posts">
