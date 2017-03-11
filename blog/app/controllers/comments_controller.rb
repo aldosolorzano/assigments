@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
     @comments = Comment.where(post_id: params[:post_id])
 
     if @comment.save
+      CommentsMailer.notify_post_owner(@comment).deliver_now
       redirect_to post_path(params[:post_id])
     else
       flash.now[:alert] = "Fix the errors below"

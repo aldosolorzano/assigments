@@ -1,0 +1,6 @@
+<div class="container">
+  <h1>You have a new comment</h1>
+  <h3><strong>Post: </strong><%= @comment.post.title %></h3>
+  <p><%= @comment.body %></p>
+  <p><strong>By: </strong><%= @comment.user&.full_name %></p>
+</div>

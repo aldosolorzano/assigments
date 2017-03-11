@@ -54,6 +54,9 @@ group :development do
   gem 'interactive_editor'
   gem 'hirb'
   gem 'awesome_print'
+  gem 'delayed_job_active_record'
+  gem 'delayed_job_web'
+  gem 'letter_opener'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

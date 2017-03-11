@@ -6,14 +6,13 @@
     <div class="col-sm-4 hidden-xs">
       <div class="post-top">
         <% if user_signed_in? && @post.liked_by?(current_user) %>
-          <%= link_to 'Un-like', like_path(@post.likes.find_by(user:current_user)),method: :delete %>
+          <%= link_to '', like_path(@post.likes.find_by(user:current_user)),class:'fa fa-heart fa-2x',method: :delete %>
         <% else %>
-          <%= link_to 'Like', post_likes_path(@post),method: :post %>
+          <%= link_to '', post_likes_path(@post),class:'fa fa-heart-o fa-2x',method: :post %>
         <% end %>
-          <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
+
           <span class="post-likes"><%= @post.likes.count%></span>
           <i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i>
-
       </div>
     </div>
   </div>
@@ -32,8 +31,12 @@
     <%= link_to 'edit', edit_post_path(@post) %>
     <div class="row post-footer visible-xs">
       <div class="col-xs-2">
-        <i class="fa fa-heart-o fa-2x" aria-hidden="true"></i>
-        <span class="post-likes">235</span>
+        <% if user_signed_in? && @post.liked_by?(current_user) %>
+          <%= link_to '', like_path(@post.likes.find_by(user:current_user)),class:'fa fa-heart fa-2x',method: :delete %>
+        <% else %>
+          <%= link_to '', post_likes_path(@post),class:'fa fa-heart-o fa-2x',method: :post %>
+        <% end %>
+        <span class="post-likes"><%= @post.likes.count%></span>
       </div>
       <div class="col-xs-10">
         <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
