@@ -9,40 +9,47 @@
         </div>
         <div class="row post-footer">
           <div class="col-xs-2">
+
+          <% if has_posts? %>
             <% if user_signed_in? && @first_post.liked_by?(current_user) %>
-              <%= link_to '', like_path(@first_post.likes.find_by(user:current_user)),class:'fa fa-heart fa-2x',method: :delete %>
+              <%= link_to '', like_path(@first_post.likes.find_by(user:current_user)), class:'fa fa-heart fa-2x',method: :delete %>
             <% else %>
-              <%= link_to '', post_likes_path(@first_post),class:'fa fa-heart-o fa-2x',method: :post %>
+              <%= link_to '', post_likes_path(@first_post), class:'fa fa-heart-o fa-2x',method: :post %>
             <% end %>
             <span class="post-likes"><%= @first_post.likes.count%></span>
+          <% end %>
           </div>
           <div class="col-xs-10">
             <p class="text-right"><i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p>
           </div>
         </div>
         <div class="post-text">
-          <h1><%= link_to @first_post.title, post_path(@first_post) %></h1>
-          <p><%=@first_post.body%></p>
-          <%= link_to @first_post.user.full_name %>
-          <p><%= @first_post.created_at.strftime("%Y-%m-%d")%></p>
+          <% if has_posts? %>
+            <h1><%= link_to @first_post.title, post_path(@first_post) %></h1>
+            <p><%=@first_post.body%></p>
+            <%= link_to @first_post.user.full_name %>
+            <p><%= @first_post.created_at.strftime("%Y-%m-%d")%></p>
+          <% end %>
         </div>
       </div>
     </div>
     <div class="col-md-4 most-liked">
       <div class="panel panel-default">
-      <div class="panel-heading">Most liked</div>
-      <div class="panel-body">
-        <% @posts.each do |p| %>
-          <%= link_to p.title, post_path(p) %>
+        <% if has_posts? %>
+        <div class="panel-heading">Most liked</div>
+        <div class="panel-body">
+          <% @posts.each do |p| %>
+            <%= link_to p.title, post_path(p) %>
+          <% end %>
+        </div>
         <% end %>
       </div>
     </div>
-    </div>
-
   </div>
 
   <div class=" posts">
     <% count = 0 %>
+    <% if has_posts? %>
     <% @posts.last(@posts.count - 1).each do |p| %>
       <% if count == 0 %>
         <div class="row">
@@ -81,7 +88,8 @@
           <% count += 1 %>
         <% end %>
 
-    <%end%>
+    <% end %>
+    <% end %>
   </div>
   <h4 class='text-center'><%= link_to 'More articles'%></4>
 
