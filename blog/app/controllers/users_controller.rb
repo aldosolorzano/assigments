@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-before_action :authenticate_user!, only:[:edit]
-before_action :authorize, only:[:edit,:update]
+  before_action :authenticate_user!, only:[:edit]
+  before_action :authorize, only: [:edit, :update]
+
   def new
     @user = User.new
   end
@@ -31,7 +32,7 @@ before_action :authorize, only:[:edit,:update]
                                         :last_name,
                                         :email)
     if @user.update user_params
-      redirect_to root_path,notice:'Profile updated!'
+      redirect_to root_path, notice:'Profile updated!'
     else
       render :edit
     end
@@ -43,7 +44,7 @@ before_action :authorize, only:[:edit,:update]
   def authorize
     @user = User.find params[:id]
     if cannot?(:manage, @user)
-      redirect_to root_path,notice:'You cant tho'
+      redirect_to root_path, notice:'You cant tho'
     end
   end
 end

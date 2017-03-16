@@ -13,12 +13,11 @@ class SessionsController < ApplicationController
     else
     render :new
     end
-
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_path,notice: 'Succesfully Sign out'
+    redirect_to root_path, notice: 'Succesfully Sign out'
   end
 
 end

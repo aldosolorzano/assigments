@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_post,only:[:create]
+  before_action :find_post, only: [:create]
 
   def index
     @posts = current_user.liked_posts
@@ -12,7 +12,7 @@ class LikesController < ApplicationController
     @like.post = @post
 
     if cannot?(:like,@post)
-      redirect_to post_path(@post),alert: 'Can\'t like'
+      redirect_to post_path(@post), alert: 'Can\'t like'
       return
     end
     redirect_to(
@@ -23,8 +23,9 @@ class LikesController < ApplicationController
 
   def destroy
     like = Like.find params[:id]
-    if cannot?(:like,like.post)
-      redirect_to post_path(@post),alert: 'Can\'t like'
+
+    if cannot?(:like, like.post)
+      redirect_to post_path(@post), alert: 'Can\'t like'
       return
     end
 
