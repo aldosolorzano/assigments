@@ -1,17 +1,10 @@
+
 const Express = require('express');
 const router = Express.Router();
 const submitted = {names:"",method:"",number:"",teams:{value:""}};
 const pg = require('pg')
 
-const config= {
-  user: 'aldo',
-  database: 'teamPicker',
-  password: '',
-  host: 'localhost',
-  port: 5432,
-  max: 10,
-  idleTimeoutMillis:300000
-};
+const config = require('../config'); // This automagically reads the config.json file
 
 const pool = new pg.Pool(config);
 
@@ -28,16 +21,6 @@ router.get('/',function(req,res){
 });
 
 router.post('/',function(req,res){
-  pool.connect((err,client, done)=>{
-    if(err) return console.error("Error cant connect to pool")
-    client.query('INSERT INTO public."teamPicker" (request) VALUES($1)',[namesArr]);
-    (qERR)=>{
-      done();
-      if(qERR) return console.error("problem with query")
-    }
-  })
-
-
   let params = req.body;
   let numberTeams = parseInt(params.number);
   let method = params.method;
@@ -45,16 +28,25 @@ router.post('/',function(req,res){
   res.cookie('names',names);
   res.cookie('number',numberTeams);
   let cookies = req.cookies;
+  let namesArr = names.split(",");
 
   if(method === "team-count"){
-    let namesArr = names.split(",");
     res.cookie('teams',{value:teamCount(namesArr,numberTeams)});
   } else if (method == "per-team") {
-    let namesArr = names.split(",");
     res.cookie('teams',{value:perTeam(namesArr,numberTeams)});
   }else{
     res.cookie('teams',{value:[["Hello, enter some values"]]});
   }
+
+  pool.connect((err,client, done)=>{
+    if(err) return console.error("Error cant connect to pool (%s)" % err);
+    client.query('INSERT INTO namehistory (names) VALUES($1)', [names]);
+    (qERR)=>{
+      done();
+      if(qERR) return console.error("problem with query")
+    }
+  });
+
   res.redirect('/');
 })
 
@@ -78,12 +70,12 @@ function teamCount(names,n) {
   let randomator =  randomName(names)
   let nameslength = names.length;
   let teams = [];
-    for(i=0; i < n; i++){
+    for(let i=0; i < n; i++){
       teams.push([]);
     }
 
-    for(i=0; i<teams.length; i++){
-      for(j = 0; j < Math.ceil(nameslength/n);j++){
+    for(let i=0; i<teams.length; i++){
+      for(let j = 0; j < Math.ceil(nameslength/n);j++){
           let name = randomator();
           if(name==undefined){
             teams.splice(i)
@@ -105,11 +97,11 @@ function perTeam(names,n){
   }
   let randomator =  randomName(names);
   let teams = []
-  for(i = 0; i < names.length/n; i++){
+  for(let i = 0; i < names.length/n; i++){
     teams.push([]);
   }
-  for(i=0; i<teams.length;i++){
-    for(e=0; e<n;e++){
+  for(let i=0; i<teams.length;i++){
+    for(let e=0; e<n;e++){
       let name = randomator()
       if(name==undefined){
         return teams
